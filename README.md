@@ -1,10 +1,12 @@
 Informative GIT Prompt for Fish shell
 =====================================
 
-This prompt is a port of the [Informative git prompt for bash][1] which is based on [Informative git prompt for zsh][2]
+This prompt is a port of the [Informative git prompt for bash][1] which is based on [Informative git prompt for zsh][2].
+Original idea is from blog post [A zsh prompt for Git users][3].
 
-[1]: https://github.com/magicmonty/bash-git-prompt          "Informative git prompt for bash"
-[2]: https://github.com/olivierverdier/zsh-git-prompt       "Informative git prompt for zsh"
+[1]: https://github.com/magicmonty/bash-git-prompt              "Informative git prompt for bash"
+[2]: https://github.com/olivierverdier/zsh-git-prompt           "Informative git prompt for zsh"
+[3]: http://sebastiancelis.com/2009/nov/16/zsh-prompt-git-users "A zsh prompt for Git users"
 
 ## Examples
 
