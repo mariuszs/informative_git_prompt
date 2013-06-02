@@ -1,7 +1,38 @@
+# Colors
+# Reset
+set ResetColor (set_color normal)       # Text Reset
+
+# Regular Colors
+set Red (set_color red)                 # Red
+set Yellow (set_color yellow);          # Yellow
+set Blue (set_color blue)               # Blue
+set WHITE (set_color white)
+
+# Bold
+set BGreen (set_color -o green)         # Green
+
+# High Intensty
+set IBlack (set_color -o black)         # Black
+
+# Bold High Intensty
+set Magenta (set_color -o purple)       # Purple
+
+# Default values for the appearance of the prompt. Configure at will.
+set GIT_PROMPT_PREFIX "("
+set GIT_PROMPT_SUFFIX ")"
+set GIT_PROMPT_SEPARATOR "|"
+set GIT_PROMPT_BRANCH "$Magenta"
+set GIT_PROMPT_STAGED "$Red●"
+set GIT_PROMPT_CONFLICTS "$Red✖"
+set GIT_PROMPT_CHANGED "$Blue✚"
+set GIT_PROMPT_REMOTE " "
+set GIT_PROMPT_UNTRACKED "…"
+set GIT_PROMPT_CLEAN "$BGreen✔"
+
 
 function  __informative_git_prompt
 
-    set -l branch (git rev-parse --abbrev-ref HEAD ^/dev/null)
+    set -l branch (git rev-parse --abbrev-ref HEAD)
     if test -z $branch
         return
     end
@@ -32,10 +63,13 @@ function  __informative_git_prompt
     if test -z $branch
 
         set hash (git rev-parse --short HEAD | cut -c 2-)
-        set branch $prehash$hash 
+        set branch $prehash$hash
+
     else
+
         set remote_name  (git config branch.$branch.remote)
-        if test -n $remote_name
+
+        if test -n "$remote_name"
             set merge_name (git config branch.$branch.merge)
             set merge_name_short (echo $merge_name | cut -c 12-)
         else
@@ -48,7 +82,11 @@ function  __informative_git_prompt
             set remote_ref $merge_name
         else
             set remote_ref "refs/remotes/$remote_name/$merge_name_short"
-            set rev_git (git rev-list --left-right $remote_ref...HEAD)
+            set rev_git (eval "git rev-list --left-right $remote_ref...HEAD" ^/dev/null)
+
+            if test $status = 0
+                set rev_git (git rev-list --left-right $merge_name...HEAD)
+            end
 
             for i in $rev_git
                 if echo $i | grep '>' >/dev/null
@@ -72,12 +110,38 @@ function  __informative_git_prompt
         end
     end
 
-    if test -z $remote 
-        set remote '.'
+    if test -n "$branch"
+        set STATUS " $GIT_PROMPT_PREFIX$GIT_PROMPT_BRANCH$branch$ResetColor"
+
+        if set -q remote
+            set STATUS "$STATUS$GIT_PROMPT_REMOTE$remote$ResetColor"
+        end
+
+        set STATUS "$STATUS$GIT_PROMPT_SEPARATOR"
+
+        if [ $staged != "0" ]
+            set STATUS "$STATUS$GIT_PROMPT_STAGED$staged$ResetColor"
+        end
+
+        if [ $conflicts != "0" ]
+            set STATUS "$STATUS$GIT_PROMPT_CONFLICTS$conflicts$ResetColor"
+        end
+
+        if [ $changed != "0" ]
+            set STATUS "$STATUS$GIT_PROMPT_CHANGED$changed$ResetColor"
+        end
+
+        if [ "$untracked" != "0" ]
+            set STATUS "$STATUS$GIT_PROMPT_UNTRACKED$untracked$ResetColor"
+        end
+
+        if [ "$clean" = "0" ]
+            set STATUS "$STATUS$GIT_PROMPT_CLEAN"
+        end
+
+        set STATUS "$STATUS$ResetColor$GIT_PROMPT_SUFFIX"
+
+        echo -e -n "$STATUS"
     end
-
-    set out $branch $remote $staged $conlicts $changed $untracked $clean
-
-    echo $out
 
 end
