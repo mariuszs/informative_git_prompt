@@ -1,6 +1,9 @@
 # Sample config
 
-. informative_git_prompt.fish
+set -xg fish_color_user magenta
+set -xg fish_color_host yellow
+
+. $HOME/.config/fish/informative_git_prompt.fish
 
 function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
