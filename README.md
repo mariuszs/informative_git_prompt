@@ -1,4 +1,4 @@
-informative GIT Prompt for Fish shell
+Informative GIT Prompt for Fish shell
 =====================================
 
 This prompt is a port of the [Informative git prompt for bash][1] which is based on [Informative git prompt for zsh][2]
@@ -18,6 +18,7 @@ The prompt may look like the following:
 * ``(:70c2952|✔)``: not on any branch; parent commit has hash ``70c2952``; the repository is otherwise clean
 
 
+![screen](https://raw.github.com/mariuszs/informative_git_prompt/master/shell.png)
 
 ##  Prompt Structure
 
@@ -43,9 +44,9 @@ The symbols are as follows:
 ## Install
 
 1. Move the file ``informative_git_prompt.fish`` into ``~/.config/fish/``.
-1. Source the file ``informative_git_prompt.fish`` from your ``~/.config/fish/config`` config file.
-1. Configure your prompt in``~/.bash/gitprompt.sh``. For this you have to define function ``fish_prompt``. Example function is inside
-``example_config.fish`` - simply copy this method.
+1. Source the file ``informative_git_prompt.fish`` from your ``~/.config/fish/config.fish`` config file.
+1. Configure your prompt in``~/.config/fish/config.fish``. For this you have to define function ``fish_prompt``. Example function is inside
+``example_config.fish`` - simply copy is enough.
 1. Go in a git repository and test it!
 
 **Enjoy!**
