@@ -140,6 +140,8 @@ function  __informative_git_prompt
         set STATUS "$STATUS$ResetColor$GIT_PROMPT_SUFFIX"
 
         echo -e -n "$STATUS"
+        
+        set_color normal
     end
 
 end
