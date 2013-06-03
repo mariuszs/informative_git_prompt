@@ -98,12 +98,10 @@ function  __informative_git_prompt
             set behind (math (count $rev_git) - $ahead)
 
             if [ $ahead != "0" ]
-                echo "ahead $ahead"
                 set remote "$remote$symbol_ahead_of$ahead"
             end
 
             if [ $behind != "0" ]
-                echo "behind $behind"
                 set remote "$remote$symbol_behind$behind"
             end
 
