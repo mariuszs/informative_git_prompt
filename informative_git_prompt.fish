@@ -32,7 +32,7 @@ set GIT_PROMPT_CLEAN "$BGreen✔"
 
 function  __informative_git_prompt
 
-    set -l branch (git rev-parse --abbrev-ref HEAD)
+    set -l branch (eval "git rev-parse --abbrev-ref HEAD" ^/dev/null)
     if test -z $branch
         return
     end
