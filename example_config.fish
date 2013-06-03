@@ -34,5 +34,14 @@ function fish_prompt --description 'Write out the prompt'
   end
 
   echo -n ' $ '
-  set_color normal
+
 end
+
+function fish_right_prompt -d "Write out the right prompt"
+
+  # Time
+  set_color -o black
+  echo (date +%R)
+
+end
+
