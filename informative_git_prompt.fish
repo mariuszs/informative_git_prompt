@@ -1,3 +1,26 @@
+
+
+
+set -gx fish_color_git_clean green
+set -gx fish_color_git_staged yellow
+set -gx fish_color_git_dirty red
+
+set -gx fish_color_git_added green
+set -gx fish_color_git_modified blue
+set -gx fish_color_git_renamed magenta
+set -gx fish_color_git_copied magenta
+set -gx fish_color_git_deleted red
+set -gx fish_color_git_untracked yellow
+set -gx fish_color_git_unmerged red
+
+set -gx fish_prompt_git_status_added '✚'
+set -gx fish_prompt_git_status_modified '*'
+set -gx fish_prompt_git_status_renamed '➜'
+set -gx fish_prompt_git_status_copied '⇒'
+set -gx fish_prompt_git_status_deleted '✖'
+set -gx fish_prompt_git_status_untracked '?'
+set -gx fish_prompt_git_status_unmerged '!'
+
 # Colors
 # Reset
 set ResetColor (set_color normal)       # Text Reset
@@ -18,9 +41,13 @@ set IBlack (set_color -o black)         # Black
 set Magenta (set_color -o purple)       # Purple
 
 # Default values for the appearance of the prompt. Configure at will.
-set GIT_PROMPT_PREFIX "("
-set GIT_PROMPT_SUFFIX ")"
-set GIT_PROMPT_SEPARATOR "|"
+set -gx fish_prompt_git_prefix "("
+set -gx fish_prompt_git_suffix ")"
+set -gx fish_prompt_git_separator "|"
+set -gx fish_prompt_git_ahead_of "↑"
+set -gx fish_prompt_git_behind  "↓"
+set -gx fish_prompt_git_prehash ":"
+
 set GIT_PROMPT_BRANCH "$Magenta"
 set GIT_PROMPT_STAGED "$Red●"
 set GIT_PROMPT_CONFLICTS "$Red✖"
@@ -29,19 +56,16 @@ set GIT_PROMPT_REMOTE " "
 set GIT_PROMPT_UNTRACKED "…"
 set GIT_PROMPT_CLEAN "$BGreen✔"
 
-
 function  __informative_git_prompt
+
+
 
     set -l branch (eval "git rev-parse --abbrev-ref HEAD" ^/dev/null)
     if test -z $branch
         return
     end
 
-    set branch (git symbolic-ref HEAD | cut -c 12-)
-
-    set symbol_ahead_of "↑"
-    set symbol_behind  "↓"
-    set prehash ":"
+    set branch (git symbolic-ref -q HEAD | cut -c 12-)
 
     set changedFiles (git diff --name-status | cut -c 1-2)
 
@@ -63,7 +87,7 @@ function  __informative_git_prompt
     if test -z $branch
 
         set hash (git rev-parse --short HEAD | cut -c 2-)
-        set branch $prehash$hash
+        set branch $fish_prompt_git_prehash$hash
 
     else
 
@@ -98,24 +122,24 @@ function  __informative_git_prompt
             set behind (math (count $rev_git) - $ahead)
 
             if [ $ahead != "0" ]
-                set remote "$remote$symbol_ahead_of$ahead"
+                set remote "$remote$fish_prompt_git_ahead_of$ahead"
             end
 
             if [ $behind != "0" ]
-                set remote "$remote$symbol_behind$behind"
+                set remote "$remote$fish_prompt_git_behind$behind"
             end
 
         end
     end
 
     if test -n "$branch"
-        set STATUS " $GIT_PROMPT_PREFIX$GIT_PROMPT_BRANCH$branch$ResetColor"
+        set STATUS " $fish_prompt_git_prefix$GIT_PROMPT_BRANCH$branch$ResetColor"
 
         if set -q remote
             set STATUS "$STATUS$GIT_PROMPT_REMOTE$remote$ResetColor"
         end
 
-        set STATUS "$STATUS$GIT_PROMPT_SEPARATOR"
+        set STATUS "$STATUS$fish_prompt_git_separator"
 
         if [ $staged != "0" ]
             set STATUS "$STATUS$GIT_PROMPT_STAGED$staged$ResetColor"
@@ -137,7 +161,7 @@ function  __informative_git_prompt
             set STATUS "$STATUS$GIT_PROMPT_CLEAN"
         end
 
-        set STATUS "$STATUS$ResetColor$GIT_PROMPT_SUFFIX"
+        set STATUS "$STATUS$ResetColor$fish_prompt_git_suffix"
 
         echo -e -n "$STATUS"
         
