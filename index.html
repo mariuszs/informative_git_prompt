@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Informative git prompt by mariuszs</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/mariuszs/informative_git_prompt">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/mariuszs/informative_git_prompt/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/mariuszs/informative_git_prompt/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Informative git prompt</h1>
+          <p>Informative Git Prompt for Fish</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/mariuszs">mariuszs</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="informative-git-prompt-for-fish-shell" class="anchor" href="#informative-git-prompt-for-fish-shell"><span class="octicon octicon-link"></span></a>Informative GIT Prompt for Fish shell</h1>
+
+<p>This prompt is a port of the <a href="https://github.com/magicmonty/bash-git-prompt" title="Informative git prompt for bash">Informative git prompt for bash</a> which is based on <a href="https://github.com/olivierverdier/zsh-git-prompt" title="Informative git prompt for zsh">Informative git prompt for zsh</a>.
+Original idea is from blog post <a href="http://sebastiancelis.com/2009/nov/16/zsh-prompt-git-users" title="A zsh prompt for Git users">A zsh prompt for Git users</a>.</p>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>The prompt may look like the following:</p>
+
+<ul>
+<li>
+<code>(master↑3|✚1)</code>: on branch <code>master</code>, ahead of remote by 3 commits, 1 file changed but not staged</li>
+<li>
+<code>(status|●2)</code>: on branch <code>status</code>, 2 files staged</li>
+<li>
+<code>(master|✚7…)</code>: on branch <code>master</code>, 7 files changed, some files untracked</li>
+<li>
+<code>(master|✖2✚3)</code>: on branch <code>master</code>, 2 conflicts, 3 files changed</li>
+<li>
+<code>(experimental↓2↑3|✔)</code>: on branch <code>experimental</code>; your branch has diverged by 3 commits, remote by 2 commits; the repository is otherwise clean</li>
+<li>
+<code>(:70c2952|✔)</code>: not on any branch; parent commit has hash <code>70c2952</code>; the repository is otherwise clean</li>
+</ul><p><img src="https://raw.github.com/mariuszs/informative_git_prompt/master/shell.png" alt="screen"></p>
+
+<h2>
+<a name="prompt-structure" class="anchor" href="#prompt-structure"><span class="octicon octicon-link"></span></a>Prompt Structure</h2>
+
+<p>By default, the general appearance of the prompt is:</p>
+
+<pre><code>(&lt;branch&gt; &lt;branch tracking&gt;|&lt;local status&gt;)
+</code></pre>
+
+<p>The symbols are as follows:</p>
+
+<ul>
+<li>Local Status Symbols
+
+<ul>
+<li>
+<code>✔</code>: repository clean</li>
+<li>
+<code>●n</code>: there are <code>n</code> staged files</li>
+<li>
+<code>✖n</code>: there are <code>n</code> unmerged files</li>
+<li>
+<code>✚n</code>: there are <code>n</code> changed but <em>unstaged</em> files</li>
+<li>
+<code>…n</code>: there are <code>n</code> untracked files</li>
+</ul>
+</li>
+<li>Branch Tracking Symbols
+
+<ul>
+<li>
+<code>↑n</code>: ahead of remote by <code>n</code> commits</li>
+<li>
+<code>↓n</code>: behind remote by <code>n</code> commits</li>
+<li>
+<code>↓m↑n</code>: branches diverged, other by <code>m</code> commits, yours by <code>n</code> commits</li>
+</ul>
+</li>
+<li>Branch Symbol:<br>
+When the branch name starts with a colon <code>:</code>, it means it's actually a hash, not a branch (although it should be pretty clear, unless you name your branches like hashes :-)</li>
+</ul><h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<ol>
+<li>Move the file <code>informative_git_prompt.fish</code> into <code>~/.config/fish/</code>.</li>
+<li>Source the file <code>informative_git_prompt.fish</code> from your <code>~/.config/fish/config.fish</code> config file.</li>
+<li>Configure your prompt in<code>~/.config/fish/config.fish</code>. For this you have to define function <code>fish_prompt</code>. Example function is inside
+<code>example_config.fish</code> - simply copy is enough.</li>
+<li>Go in a git repository and test it!</li>
+</ol><p><strong>Enjoy!</strong></p>
+
+<h3>
+<a name="example-configuration-configfish" class="anchor" href="#example-configuration-configfish"><span class="octicon octicon-link"></span></a>Example configuration (config.fish)</h3>
+
+<pre><code>. informative_git_prompt.fish
+
+function fish_prompt --description 'Write out the prompt'
+
+  set_color $fish_color_cwd
+  echo -n (prompt_pwd)
+  set_color normal
+
+  __informative_git_prompt
+
+  if not test $last_status -eq 0
+  set_color $fish_color_error
+  end
+
+  echo -n ' $ '
+  set_color normal
+
+end
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
