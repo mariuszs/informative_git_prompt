@@ -4,36 +4,28 @@
 # This is fish port of Informative git prompt for bash (https://github.com/magicmonty/bash-git-prompt)
 #
 
-set -gx __fish_prompt_git_prefix " ("
-set -gx __fish_prompt_git_suffix ")"
-set -gx __fish_prompt_git_separator "|"
-set -gx __fish_prompt_git_ahead_of "↑"
-set -gx __fish_prompt_git_behind  "↓"
-set -gx __fish_prompt_git_prehash ":"
-set -gx __fish_prompt_git_color_changed "blue"
-set -gx __fish_prompt_git_color_clean "green"
-set -gx __fish_prompt_git_color_conflicts "red"
-set -gx __fish_prompt_git_color_staged "red"
-set -gx __fish_prompt_git_color_branch "magenta"
+set -g __fish_prompt_git_prefix " ("
+set -g __fish_prompt_git_suffix ")"
+set -g __fish_prompt_git_separator "|"
+set -g __fish_prompt_git_ahead_of "↑"
+set -g __fish_prompt_git_behind  "↓"
+set -g __fish_prompt_git_prehash ":"
+set -g __fish_prompt_git_color_changed "blue"
+set -g __fish_prompt_git_color_clean "green"
+set -g __fish_prompt_git_color_conflicts "red"
+
+set -g __fish_prompt_git_prompt_staged (set_color red)"●"
+set -g __fish_prompt_git_prompt_conflicts (set_color red)"✖"
+set -g __fish_prompt_git_prompt_changed (set_color blue)"✚"
+
+set -g __fish_prompt_git_prompt_branch (set_color -o magenta)
+set -g __fish_prompt_git_prompt_remote " "
+set -g __fish_prompt_git_prompt_clean (set_color -o green)"✔"
+set -g __fish_prompt_git_prompt_untracked "…"
 
 function  __informative_git_prompt
 
     set -l reset_color (set_color $fish_color_normal)
-
-    set -l color_branch (set_color -o $__fish_prompt_git_color_branch)
-    set -l color_clean (set_color -o $__fish_prompt_git_color_clean)
-
-    set -l color_staged (set_color $__fish_prompt_git_color_staged)
-    set -l color_conflicts (set_color $__fish_prompt_git_color_conflicts)
-    set -l color_changed (set_color $__fish_prompt_git_color_changed)
-
-    set -l prompt_branch "$color_branch"
-    set -l prompt_staged "$color_staged●"
-    set -l prompt_conflicts "$color_conflicts✖"
-    set -l prompt_changed "$color_changed✚"
-    set -l prompt_remote " "
-    set -l prompt_untracked "…"
-    set -l prompt_clean "$color_clean✔"
 
     set -l branch (eval "git rev-parse --abbrev-ref HEAD" ^/dev/null)
     if test -z $branch
@@ -63,7 +55,7 @@ function  __informative_git_prompt
 
     end
 
-    echo -n "$__fish_prompt_git_prefix$prompt_branch$branch$reset_color"
+    echo -n "$__fish_prompt_git_prefix$__fish_prompt_git_prompt_branch$branch$reset_color"
 
     set -l remote_name  (git config branch.$branch.remote)
 
@@ -106,29 +98,29 @@ function  __informative_git_prompt
     end
 
     if set -q remote
-        set STATUS "$STATUS$prompt_remote$remote$reset_color"
+        set STATUS "$STATUS$__fish_prompt_git_prompt_remote$remote$reset_color"
     end
 
     set STATUS "$STATUS$__fish_prompt_git_separator"
 
     if [ $staged != "0" ]
-        set STATUS "$STATUS$prompt_staged$staged$reset_color"
+        set STATUS "$STATUS$__fish_prompt_git_prompt_staged$staged$reset_color"
     end
 
     if [ $conflicts != "0" ]
-        set STATUS "$STATUS$prompt_conflicts$conflicts$reset_color"
+        set STATUS "$STATUS$__fish_prompt_git_prompt_conflicts$conflicts$reset_color"
     end
 
     if [ $changed != "0" ]
-        set STATUS "$STATUS$prompt_changed$changed$reset_color"
+        set STATUS "$STATUS$__fish_prompt_git_prompt_changed$changed$reset_color"
     end
 
     if [ "$untracked" != "0" ]
-        set STATUS "$STATUS$prompt_untracked$untracked$reset_color"
+        set STATUS "$STATUS$__fish_prompt_git_prompt_untracked$untracked$reset_color"
     end
 
     if [ "$clean" = "0" ]
-        set STATUS "$STATUS$prompt_clean"
+        set STATUS "$STATUS$__fish_prompt_git_prompt_clean"
     end
 
     set STATUS "$STATUS$reset_color$__fish_prompt_git_suffix"
