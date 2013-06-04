@@ -107,8 +107,7 @@ When the branch name starts with a colon <code>:</code>, it means it's actually 
 <a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
 
 <ol>
-<li>Move the file <code>informative_git_prompt.fish</code> into <code>~/.config/fish/</code>.</li>
-<li>Source the file <code>informative_git_prompt.fish</code> from your <code>~/.config/fish/config.fish</code> config file.</li>
+<li>Move the file <code>__informative_git_prompt.fish</code> into <code>~/.config/fish/functions</code>.</li>
 <li>Configure your prompt in<code>~/.config/fish/config.fish</code>. For this you have to define function <code>fish_prompt</code>. Example function is inside
 <code>example_config.fish</code> - simply copy is enough.</li>
 <li>Go in a git repository and test it!</li>
@@ -117,9 +116,7 @@ When the branch name starts with a colon <code>:</code>, it means it's actually 
 <h3>
 <a name="example-configuration-configfish" class="anchor" href="#example-configuration-configfish"><span class="octicon octicon-link"></span></a>Example configuration (config.fish)</h3>
 
-<pre><code>. $HOME/.config/fish/informative_git_prompt.fish
-
-function fish_prompt --description 'Write out the prompt'
+<pre><code>function fish_prompt --description 'Write out the prompt'
 
   set_color $fish_color_cwd
   echo -n (prompt_pwd)
@@ -128,7 +125,7 @@ function fish_prompt --description 'Write out the prompt'
   __informative_git_prompt
 
   if not test $last_status -eq 0
-  set_color $fish_color_error
+    set_color $fish_color_error
   end
 
   echo -n ' $ '
