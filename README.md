@@ -45,8 +45,7 @@ The symbols are as follows:
 
 ## Install
 
-1. Move the file ``informative_git_prompt.fish`` into ``~/.config/fish/``.
-1. Source the file ``informative_git_prompt.fish`` from your ``~/.config/fish/config.fish`` config file.
+1. Move the file ``__informative_git_prompt.fish`` into ``~/.config/fish/functions``.
 1. Configure your prompt in``~/.config/fish/config.fish``. For this you have to define function ``fish_prompt``. Example function is inside
 ``example_config.fish`` - simply copy is enough.
 1. Go in a git repository and test it!
@@ -54,8 +53,6 @@ The symbols are as follows:
 **Enjoy!**
 
 ### Example configuration (config.fish)
-
-    . $HOME/.config/fish/informative_git_prompt.fish
 
     function fish_prompt --description 'Write out the prompt'
 
