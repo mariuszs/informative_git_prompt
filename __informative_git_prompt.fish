@@ -10,6 +10,12 @@ set -gx fish_color_git_remote normal
 
 set -g digit_sub "₁" "₂" "₃" "₄" "₅" "₆" "₇" "₈" "₉"
 set -g digit_super "¹" "²" "³" "⁴" "⁵" "⁶" "⁷" "⁸" "⁹"
+set -g digit_untracked "① " "② " "③ " "④ " "⑤ " "⑥ " "⑦ " "⑧ " "⑨ " "⑩ " "⑪ " "⑫ " "⑬ " "⑭ " "⑮ " "⑯ " "⑰ " "⑱ " "⑲ " "⑳ "
+set -g digit_staged  "❶ " "❷ " "❸ " "❹ " "❺ " "❻ " "❼ " "❽ " "❾ " "❿ "
+set -g digit_changed  "❶ " "❷ " "❸ " "❹ " "❺ " "❻ " "❼ " "❽ " "❾ " "❿ "
+
+#set -g digit_untracked "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"
+#set -g digit_untracked "…" "…" "…" "…" "…" "…" "…" "…" "…" "…"
 
 set -gx fish_color_git_staged yellow
 set -gx fish_color_git_conflicts red
@@ -44,7 +50,7 @@ function __informative_git_prompt --description 'Write out the git prompt'
 
     set -l branch (git symbolic-ref -q HEAD | cut -c 12-)
 
-    echo -n " ("
+   echo -n " " #("
     set_color -o $fish_color_git_branch
 
     if test -z $branch
@@ -56,7 +62,7 @@ function __informative_git_prompt --description 'Write out the git prompt'
     end
 
     set_color $fish_color_normal
-    echo -n '|'
+    echo -n " " # "⫶" # '│'  #|'
 
     if [ (math $changed + $conflicts + $staged + $untracked) = 0 ]
         set_color -o $fish_color_git_clean
@@ -69,13 +75,16 @@ function __informative_git_prompt --description 'Write out the git prompt'
             set -l color_name fish_color_git_$i
             set -l status_name fish_prompt_git_status_$i
             set_color $$color_name
-            echo -n $$status_name$$i
+            #echo -n $$status_name
+            set -l digit digit_$i
+            
+            echo -n $$digit[1][$$i] # $digit_staged[$$i] # $$i #$$digit[$$i]
         end
     end
 
     set_color $fish_color_normal
 
-    echo -n ")"
+  #  echo -n ")"
 
 end
 
