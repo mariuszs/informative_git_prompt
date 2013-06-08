@@ -98,8 +98,7 @@ function ___print_remote_info
     end
 
     set rev_git (eval "git rev-list --left-right $remote_ref...HEAD" ^/dev/null)
-
-    if test $status = 0
+    if test $status != "0"
         set rev_git (git rev-list --left-right $merge_name...HEAD)
     end
 
