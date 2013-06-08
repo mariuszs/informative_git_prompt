@@ -6,7 +6,10 @@
 
 set -gx fish_color_git_clean green
 set -gx fish_color_git_branch magenta
-set -gx fish_color_git_remote green
+set -gx fish_color_git_remote normal
+
+set -g digit_sub "₁" "₂" "₃" "₄" "₅" "₆" "₇" "₈" "₉"
+set -g digit_super "¹" "²" "³" "⁴" "⁵" "⁶" "⁷" "⁸" "⁹"
 
 set -gx fish_color_git_staged yellow
 set -gx fish_color_git_conflicts red
@@ -65,7 +68,6 @@ function __informative_git_prompt --description 'Write out the git prompt'
         if [ $$i != "0" ]
             set -l color_name fish_color_git_$i
             set -l status_name fish_prompt_git_status_$i
-
             set_color $$color_name
             echo -n $$status_name$$i
         end
@@ -117,17 +119,17 @@ function ___print_remote_info
     end
 
     if [ $ahead != "0" ]
-        set_color -o $fish_color_git_remote
+        set_color $fish_color_git_remote
         echo -n $fish_prompt_git_remote_ahead_of
         set_color $fish_color_normal
-        echo -n $ahead
+        echo -n $digit_super[$ahead]
     end
-
+#◦
     if [ $behind != "0" ]
-        set_color -o $fish_color_git_remote
+        set_color $fish_color_git_remote
         echo -n $fish_prompt_git_remote_behind
         set_color $fish_color_normal
-        echo -n $behind
+        echo -n $digit_sub[$behind]
     end
 
 end
