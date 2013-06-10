@@ -31,13 +31,10 @@ function __informative_git_prompt --description 'Write out the git prompt'
         return
     end
 
-    set -l branch (git symbolic-ref -q HEAD | cut -c 12-)
-
-    set -l git_branch_info (___fish_git_print_branch_info $branch)
+    set -l git_branch_info (___fish_git_print_branch_info)
     set -l git_status_info (___fish_git_print_status_info)
-    set -l git_remote_info (___fish_git_print_remote_info $branch)
 
-    printf "($git_branch_info$git_remote_info|$git_status_info)"
+    printf "($git_branch_info|$git_status_info)"
 
 end
 
@@ -46,15 +43,17 @@ function ___fish_git_print_branch_info
     set -l color_branch (set_color -o $fish_color_git_branch)
     set -l color_normal (set_color $fish_color_normal)
 
-    set -l branch $argv[1]
+    set -l branch (git symbolic-ref -q HEAD | cut -c 12-)
     set -l remote_info
 
     if test -z $branch
         set -l hash (git rev-parse --short HEAD | cut -c 2-)
         set branch ":"$hash
+    else
+        set remote_info (___fish_git_print_remote_info $branch)
     end
 
-    echo "$color_branch$branch$color_normal"
+    echo "$color_branch$branch$color_normal$remote_info"
 
 end
 
@@ -109,7 +108,7 @@ function ___fish_git_print_remote_info
         set remote_info $remote_info$color_remote$fish_prompt_git_remote_behind$color_normal$behind
     end
 
-    if test -n $remote_info
+    if test -n "$remote_info"
         echo " $remote_info"
     end
 
