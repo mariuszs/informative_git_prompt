@@ -23,6 +23,7 @@ set -g fish_prompt_git_status_untracked "…"
 set -g fish_prompt_git_status_clean "✔"
 
 set -g fish_prompt_git_status_git_dir "*"
+set -g fish_prompt_git_remote_space " "
 
 set -g fish_prompt_git_status_order staged conflicted changed untracked
 
@@ -37,7 +38,7 @@ function __informative_git_prompt --description 'Write out the git prompt'
     if test "true" = $is_inside_work_tree
         set git_status_info (___fish_git_print_status_info)
     else
-        set git_status_info $fish_prompt_git_status_git_dir
+        set git_status_info (set_color -o $fish_color_git_clean)$fish_prompt_git_status_git_dir(set_color $fish_color_normal)
     end
 
     printf "(%s|%s)" (___fish_git_print_branch_info) $git_status_info
@@ -117,7 +118,7 @@ function ___fish_git_print_remote_info
     end
 
     if test -n "$remote_info"
-        echo " $remote_info"
+        echo "$fish_prompt_git_remote_space$remote_info"
     end
 
 end
@@ -161,4 +162,3 @@ function ____fish_git_remote_info
     echo $behind
 
 end
-
