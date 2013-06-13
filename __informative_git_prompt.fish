@@ -23,7 +23,7 @@ set -g fish_prompt_git_status_untracked "…"
 set -g fish_prompt_git_status_clean "✔"
 
 set -g fish_prompt_git_status_git_dir "*"
-set -g fish_prompt_git_remote_space " "
+set -g fish_prompt_git_remote_space ""
 
 set -g fish_prompt_git_status_order staged conflicted changed untracked
 

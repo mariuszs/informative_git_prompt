@@ -1,7 +1,9 @@
 # Sample config
 
-set -xg fish_color_user magenta
-set -xg fish_color_host yellow
+set -g fish_color_user magenta
+set -g fish_color_host yellow
+set -g fish_prompt_git_status_git_dir '⚒'  
+set -g fish_prompt_git_remote_space ' '
 
 . $HOME/.config/fish/informative_git_prompt.fish
 
@@ -27,13 +29,13 @@ function fish_prompt --description 'Write out the prompt'
   echo -n (prompt_pwd)
   set_color normal
 
-  __informative_git_prompt
+  printf '%s ' (__informative_git_prompt)
 
   if not test $last_status -eq 0
-  set_color $fish_color_error
+    set_color $fish_color_error
   end
 
-  echo -n ' $ '
+  echo -n '$ '
   
   set_color $fish_color_normal
 
