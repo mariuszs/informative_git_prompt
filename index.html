@@ -35,7 +35,7 @@
           <p>Informative Git Prompt for Fish</p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/mariuszs">mariuszs</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
         <h1>
@@ -117,6 +117,8 @@ When the branch name starts with a colon <code>:</code>, it means it's actually 
 <a name="example-configuration-configfish" class="anchor" href="#example-configuration-configfish"><span class="octicon octicon-link"></span></a>Example configuration (config.fish)</h3>
 
 <pre><code>function fish_prompt --description 'Write out the prompt'
+
+  set -l last_status $status
 
   set_color $fish_color_cwd
   echo -n (prompt_pwd)
