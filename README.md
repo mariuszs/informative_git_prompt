@@ -1,9 +1,12 @@
 
-This Project is deprecated! 
+This Project is outdated! 
 =============
 
 Informative git prompt was merged into Fish shell!
----------
+
+https://github.com/fish-shell/fish-shell/pull/880
+
+Just run `fish_config` and select __Informative GIT Prompt__
 
 Informative GIT Prompt for Fish shell
 -----------
