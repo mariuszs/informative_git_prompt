@@ -1,5 +1,9 @@
+
+Project is deprecated! Informative git prompt was merged into Fish shell!
+=============
+
 Informative GIT Prompt for Fish shell
-=====================================
+-----------
 
 This prompt is a port of the [Informative git prompt for bash][1] which is based on [Informative git prompt for zsh][2].
 Original idea is from blog post [A zsh prompt for Git users][3].
