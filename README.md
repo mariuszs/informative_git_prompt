@@ -1,6 +1,9 @@
 
-Project is deprecated! Informative git prompt was merged into Fish shell!
+This Project is deprecated! 
 =============
+
+Informative git prompt was merged into Fish shell!
+---------
 
 Informative GIT Prompt for Fish shell
 -----------
