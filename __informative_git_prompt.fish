@@ -81,7 +81,7 @@ function ___fish_git_print_status_info
     set -l changed (math (count $changedFiles) - (count (echo $changedFiles | grep "U")))
     set -l conflicted (count (echo $stagedFiles | grep "U"))
     set -l staged (math (count $stagedFiles) - $conflicted)
-    set -l untracked (count (git ls-files --others --exclude-standard))
+    set -l untracked (count (git ls-files --others --exclude-standard (git rev-parse --show-toplevel)))
 
     if [ (math $changed + $conflicted + $staged + $untracked) = 0 ]
         set git_status $color_git_clean$fish_prompt_git_status_clean$color_normal
